@@ -33,7 +33,7 @@
 
 ############################################################################################################################################################
 
-$DropBoxAccessToken = ""
+$DropBoxAccessToken = "sl.BV3xvp3EYGBSbf1FuACOjWhQ0H7ZwaasEApA0-kKwTYjAjWL6KTe8avYSejuQd8MRM9V3AMVxuFvNQIuQCecfs0ptmGKYzMptglCoTKeTA6ZV1C7U0FQ4629JPuX8rk4-63NrSue"
 ############################################################################################################################################################
 
  function Get-fullName {
